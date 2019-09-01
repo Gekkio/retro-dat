@@ -14,34 +14,34 @@ mod xml_element;
 
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct DataFile {
-    build: String,
-    debug: bool,
-    header: Option<Header>,
-    games: Vec<Game>,
+    pub build: String,
+    pub debug: bool,
+    pub header: Option<Header>,
+    pub games: Vec<Game>,
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct Header {
-    name: String,
-    description: String,
-    category: String,
-    version: String,
-    date: String,
-    author: String,
-    email: String,
-    homepage: String,
-    url: String,
-    comment: String,
-    clr_mame_pro: Option<ClrMamePro>,
-    rom_center: Option<RomCenter>,
+    pub name: String,
+    pub description: String,
+    pub category: String,
+    pub version: String,
+    pub date: String,
+    pub author: String,
+    pub email: String,
+    pub homepage: String,
+    pub url: String,
+    pub comment: String,
+    pub clr_mame_pro: Option<ClrMamePro>,
+    pub rom_center: Option<RomCenter>,
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct ClrMamePro {
-    header: String,
-    force_merging: ForceMerging,
-    force_no_dump: ForceNoDump,
-    force_packing: ForcePacking,
+    pub header: String,
+    pub force_merging: ForceMerging,
+    pub force_no_dump: ForceNoDump,
+    pub force_packing: ForcePacking,
 }
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
@@ -84,13 +84,13 @@ impl Default for ForcePacking {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct RomCenter {
-    plugin: String,
-    rom_mode: RomMode,
-    bios_mode: RomMode,
-    sample_mode: SampleMode,
-    lock_rom_mode: bool,
-    lock_bios_mode: bool,
-    lock_sample_mode: bool,
+    pub plugin: String,
+    pub rom_mode: RomMode,
+    pub bios_mode: RomMode,
+    pub sample_mode: SampleMode,
+    pub lock_rom_mode: bool,
+    pub lock_bios_mode: bool,
+    pub lock_sample_mode: bool,
 }
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
@@ -120,53 +120,53 @@ impl Default for SampleMode {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct Game {
-    name: String,
-    description: String,
-    is_bios: bool,
-    source_file: String,
-    clone_of: String,
-    rom_of: String,
-    sample_of: String,
-    board: String,
-    rebuild_to: String,
-    comments: Vec<String>,
-    year: String,
-    manufacturer: String,
-    releases: Vec<Release>,
-    bios_sets: Vec<BiosSet>,
-    roms: Vec<Rom>,
-    disks: Vec<Disk>,
-    samples: Vec<Sample>,
-    archives: Vec<Archive>,
+    pub name: String,
+    pub description: String,
+    pub is_bios: bool,
+    pub source_file: String,
+    pub clone_of: String,
+    pub rom_of: String,
+    pub sample_of: String,
+    pub board: String,
+    pub rebuild_to: String,
+    pub comments: Vec<String>,
+    pub year: String,
+    pub manufacturer: String,
+    pub releases: Vec<Release>,
+    pub bios_sets: Vec<BiosSet>,
+    pub roms: Vec<Rom>,
+    pub disks: Vec<Disk>,
+    pub samples: Vec<Sample>,
+    pub archives: Vec<Archive>,
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct Release {
-    name: String,
-    region: String,
-    language: String,
-    date: String,
-    default: bool,
+    pub name: String,
+    pub region: String,
+    pub language: String,
+    pub date: String,
+    pub default: bool,
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct BiosSet {
-    name: String,
-    description: String,
-    default: bool,
+    pub name: String,
+    pub description: String,
+    pub default: bool,
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct Rom {
-    name: String,
-    size: String,
-    crc: String,
-    sha1: String,
-    md5: String,
-    merge: String,
-    status: Status,
-    date: String,
-    serial: String, // No-Intro extension
+    pub name: String,
+    pub size: String,
+    pub crc: String,
+    pub sha1: String,
+    pub md5: String,
+    pub merge: String,
+    pub status: Status,
+    pub date: String,
+    pub serial: String, // No-Intro extension
 }
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
@@ -185,21 +185,21 @@ impl Default for Status {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct Disk {
-    name: String,
-    sha1: String,
-    md5: String,
-    merge: String,
-    status: Status,
+    pub name: String,
+    pub sha1: String,
+    pub md5: String,
+    pub merge: String,
+    pub status: Status,
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct Sample {
-    name: String,
+    pub name: String,
 }
 
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct Archive {
-    name: String,
+    pub name: String,
 }
 
 pub struct DatReader<B: BufRead> {
