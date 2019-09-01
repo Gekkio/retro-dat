@@ -1,0 +1,13 @@
+[package]
+name = "retro-dat"
+version = "0.0.1"
+authors = ["Joonas Javanainen <joonas.javanainen@gmail.com>"]
+edition = "2018"
+publish = false
+homepage = "https://github.com/Gekkio/retro-dat"
+repository = "https://github.com/Gekkio/retro-dat"
+license = "MIT/Apache-2.0"
+readme = "README.markdown"
+
+[dependencies]
+quick-xml = "0.16"
