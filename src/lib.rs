@@ -209,7 +209,7 @@ pub struct DatReader<B: BufRead> {
 }
 
 impl<'a> DatReader<&'a [u8]> {
-    pub fn from_str(xml: &str) -> DatReader<&[u8]> {
+    pub fn from_string(xml: &str) -> DatReader<&[u8]> {
         DatReader::from_xml_reader(quick_xml::Reader::from_str(xml))
     }
 }
@@ -332,15 +332,13 @@ impl<B: BufRead> DatReader<B> {
                     if let Some(mut child) = cursor.element.child(&tag) {
                         child.apply_attrs(&self.reader, e.attributes(), self.strict)?;
                         self.read_content(child)?;
+                    } else if self.strict {
+                        break Err(DatReaderError::UnexpectedElement(format!(
+                            "Unexpected child element \"{}\" in element \"{}\"",
+                            tag, cursor.tag,
+                        )));
                     } else {
-                        if self.strict {
-                            break Err(DatReaderError::UnexpectedElement(format!(
-                                "Unexpected child element \"{}\" in element \"{}\"",
-                                tag, cursor.tag,
-                            )));
-                        } else {
-                            self.skip_content()?;
-                        }
+                        self.skip_content()?;
                     }
                 }
                 Event::Text(e) | Event::CData(e) => {
@@ -435,7 +433,7 @@ fn test_full_parse() {
         <description>Description2</description>
     </game>
 </datafile>"#;
-    let reader = DatReader::from_str(&input);
+    let reader = DatReader::from_string(&input);
     let data_file = reader.read_all().unwrap();
     assert_eq!(
         data_file,
