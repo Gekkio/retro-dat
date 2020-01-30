@@ -37,7 +37,7 @@ jobs:
 
   test:
     name: Run tests
-    needs: [check, build_test_roms]
+    needs: [check]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
