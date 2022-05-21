@@ -162,6 +162,7 @@ pub struct Rom {
     pub size: String,
     pub crc: String,
     pub sha1: String,
+    pub sha256: String, // No-Intro extension
     pub md5: String,
     pub merge: String,
     pub status: Status,
@@ -420,8 +421,8 @@ fn test_full_parse() {
         <release name="Name2" region="Region2" language="Language2" date="Date2" default="no" />
         <biosset name="Name1" description="Description1" default="yes" />
         <biosset name="Name2" description="Description2" default="yes" />
-        <rom name="Name1" size="Size1" crc="Crc1" sha1="Sha1" md5="Md1" merge="Merge1" status="baddump" date="Date1" serial="Serial1" />
-        <rom name="Name2" size="Size2" crc="Crc2" sha1="Sha2" md5="Md2" merge="Merge2" status="verified" date="Date2" serial="Serial2" />
+        <rom name="Name1" size="Size1" crc="Crc1" sha1="Sha1" sha256="Sha256" md5="Md1" merge="Merge1" status="baddump" date="Date1" serial="Serial1" />
+        <rom name="Name2" size="Size2" crc="Crc2" sha1="Sha2" sha256="Sha256" md5="Md2" merge="Merge2" status="verified" date="Date2" serial="Serial2" />
         <disk name="Name1" sha1="Sha1" md5="Md1" merge="Merge1" status="baddump" />
         <disk name="Name2" sha1="Sha2" md5="Md2" merge="Merge2" status="verified" />
         <sample name="Name1" />
@@ -515,6 +516,7 @@ fn test_full_parse() {
                             size: "Size1".to_owned(),
                             crc: "Crc1".to_owned(),
                             sha1: "Sha1".to_owned(),
+                            sha256: "Sha256".to_owned(),
                             md5: "Md1".to_owned(),
                             merge: "Merge1".to_owned(),
                             status: Status::BadDump,
@@ -526,6 +528,7 @@ fn test_full_parse() {
                             size: "Size2".to_owned(),
                             crc: "Crc2".to_owned(),
                             sha1: "Sha2".to_owned(),
+                            sha256: "Sha256".to_owned(),
                             md5: "Md2".to_owned(),
                             merge: "Merge2".to_owned(),
                             status: Status::Verified,

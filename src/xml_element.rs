@@ -182,6 +182,7 @@ impl XmlElement for Rom {
             "size" => Some(&mut self.size),
             "crc" => Some(&mut self.crc),
             "sha1" => Some(&mut self.sha1),
+            "sha256" => Some(&mut self.sha256),
             "md5" => Some(&mut self.md5),
             "merge" => Some(&mut self.merge),
             "status" => Some(&mut self.status),
