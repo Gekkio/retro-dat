@@ -10,4 +10,4 @@ license = "MIT/Apache-2.0"
 readme = "README.markdown"
 
 [dependencies]
-quick-xml = "0.24.0"
+quick-xml = "0.25.0"
