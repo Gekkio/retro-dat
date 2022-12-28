@@ -7,6 +7,7 @@ name = "retro-dat"
 version = "0.0.1"
 authors = ["Joonas Javanainen <joonas.javanainen@gmail.com>"]
 edition = "2021"
+rust-version = "1.56"
 publish = false
 homepage = "https://github.com/Gekkio/retro-dat"
 repository = "https://github.com/Gekkio/retro-dat"
