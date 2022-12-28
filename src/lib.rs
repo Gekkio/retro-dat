@@ -2,14 +2,15 @@
 //
 // SPDX-License-Identifier: MIT OR Apache-2.0
 
-use quick_xml::events::attributes::Attributes;
-use quick_xml::events::Event;
-use std::borrow::Borrow;
-use std::error::Error;
-use std::fmt;
-use std::fs::File;
-use std::io::{BufRead, BufReader};
-use std::path::Path;
+use quick_xml::events::{attributes::Attributes, Event};
+use std::{
+    borrow::Borrow,
+    error::Error,
+    fmt,
+    fs::File,
+    io::{BufRead, BufReader},
+    path::Path,
+};
 
 use crate::xml_element::XmlElement;
 

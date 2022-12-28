@@ -2,10 +2,9 @@
 //
 // SPDX-License-Identifier: MIT OR Apache-2.0
 
-use crate::xml_attr::XmlAttr;
 use crate::{
-    Archive, BiosSet, ClrMamePro, DataFile, Disk, Game, Header, Release, Rom, RomCenter, Sample,
-    XmlCursor,
+    xml_attr::XmlAttr, Archive, BiosSet, ClrMamePro, DataFile, Disk, Game, Header, Release, Rom,
+    RomCenter, Sample, XmlCursor,
 };
 
 fn cursor<'a, T: XmlElement>(tag: &'static str, element: &'a mut T) -> Option<XmlCursor<'a>> {
