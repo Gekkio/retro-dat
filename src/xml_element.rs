@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2019-2022 Joonas Javanainen <joonas.javanainen@gmail.com>
+//
+// SPDX-License-Identifier: MIT OR Apache-2.0
+
 use crate::xml_attr::XmlAttr;
 use crate::{
     Archive, BiosSet, ClrMamePro, DataFile, Disk, Game, Header, Release, Rom, RomCenter, Sample,

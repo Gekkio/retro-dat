@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2019-2022 Joonas Javanainen <joonas.javanainen@gmail.com>
+//
+// SPDX-License-Identifier: MIT OR Apache-2.0
+
 use quick_xml::events::attributes::Attributes;
 use quick_xml::events::Event;
 use std::borrow::Borrow;
