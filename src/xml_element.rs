@@ -104,6 +104,7 @@ impl XmlElement for RomCenter {
 impl XmlElement for Game {
     fn attr(&mut self, key: &str) -> Option<&mut dyn XmlAttr> {
         match key {
+            "id" => Some(&mut self.id),
             "name" => Some(&mut self.name),
             "sourcefile" => Some(&mut self.source_file),
             "isbios" => Some(&mut self.is_bios),

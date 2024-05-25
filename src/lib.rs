@@ -125,6 +125,7 @@ impl Default for SampleMode {
 
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct Game {
+    pub id: String, // No-Intro extension
     pub name: String,
     pub description: String,
     pub is_bios: bool,
@@ -480,6 +481,7 @@ fn test_full_parse() {
             }),
             games: vec![
                 Game {
+                    id: "".to_owned(),
                     name: "Name".to_owned(),
                     description: "Description".to_owned(),
                     source_file: "Sourcefile".to_owned(),
@@ -580,6 +582,7 @@ fn test_full_parse() {
                     ],
                 },
                 Game {
+                    id: "".to_owned(),
                     name: "Name2".to_owned(),
                     description: "Description2".to_owned(),
                     source_file: "".to_owned(),
