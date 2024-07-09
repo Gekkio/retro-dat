@@ -242,6 +242,7 @@ pub enum DatReaderError {
     Xml(quick_xml::Error),
     UnexpectedAttribute(String),
     UnexpectedElement(String),
+    UnexpectedEof(String),
 }
 
 impl Error for DatReaderError {}
@@ -251,7 +252,9 @@ impl fmt::Display for DatReaderError {
         use crate::DatReaderError::*;
         match self {
             Xml(err) => write!(f, "{}", err),
-            UnexpectedAttribute(msg) | UnexpectedElement(msg) => write!(f, "{}", msg),
+            UnexpectedAttribute(msg) | UnexpectedElement(msg) | UnexpectedEof(msg) => {
+                write!(f, "{}", msg)
+            }
         }
     }
 }
@@ -264,8 +267,8 @@ impl From<quick_xml::Error> for DatReaderError {
 
 impl<B: BufRead> DatReader<B> {
     fn from_xml_reader(mut reader: quick_xml::Reader<B>) -> DatReader<B> {
-        reader.trim_text(true);
-        reader.expand_empty_elements(true);
+        reader.config_mut().trim_text(true);
+        reader.config_mut().expand_empty_elements = true;
         DatReader {
             reader,
             buf: Vec::new(),
@@ -304,9 +307,9 @@ impl<B: BufRead> DatReader<B> {
                 }
                 Event::Eof => {
                     break result.ok_or_else(|| {
-                        DatReaderError::Xml(quick_xml::Error::UnexpectedEof(
+                        DatReaderError::UnexpectedEof(
                             "Unexpected EOF before a datafile element was seen".to_owned(),
-                        ))
+                        )
                     })
                 }
                 _ => (),
@@ -360,8 +363,9 @@ impl<B: BufRead> DatReader<B> {
                 }
                 Event::End(_) => break Ok(()),
                 Event::Eof => {
-                    break Err(DatReaderError::Xml(quick_xml::Error::UnexpectedEof(
-                        format!("Unexpected EOF while reading element \"{}\"", cursor.tag),
+                    break Err(DatReaderError::UnexpectedEof(format!(
+                        "Unexpected EOF while reading element \"{}\"",
+                        cursor.tag
                     )));
                 }
                 _ => (),
@@ -385,7 +389,7 @@ impl<'a> XmlCursor<'a> {
         for attr in attrs {
             let attr = attr.map_err(quick_xml::Error::InvalidAttr)?;
             let key = reader.decoder().decode(attr.key.into_inner())?;
-            let value = attr.decode_and_unescape_value(reader)?;
+            let value = attr.decode_and_unescape_value(reader.decoder())?;
             if let Some(target) = self.element.attr(&key) {
                 if target.set_from_str(&value) {
                     continue;
