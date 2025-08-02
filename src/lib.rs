@@ -131,6 +131,7 @@ pub struct Game {
     pub is_bios: bool,
     pub source_file: String,
     pub clone_of: String,
+    pub clone_ofid: String, // No-Intro extension
     pub rom_of: String,
     pub sample_of: String,
     pub board: String,
