@@ -283,7 +283,11 @@ impl<B: BufRead> DatReader<B> {
         loop {
             match self.reader.read_event_into(&mut self.buf)? {
                 Event::Start(ref e) => {
-                    let tag = self.reader.decoder().decode(e.name().into_inner())?;
+                    let tag = self
+                        .reader
+                        .decoder()
+                        .decode(e.name().into_inner())
+                        .map_err(quick_xml::Error::Encoding)?;
                     match tag.borrow() {
                         "datafile" => {
                             let mut cursor = XmlCursor {
@@ -338,7 +342,11 @@ impl<B: BufRead> DatReader<B> {
         loop {
             match self.reader.read_event_into(&mut self.buf)? {
                 Event::Start(e) => {
-                    let tag = self.reader.decoder().decode(e.name().into_inner())?;
+                    let tag = self
+                        .reader
+                        .decoder()
+                        .decode(e.name().into_inner())
+                        .map_err(quick_xml::Error::Encoding)?;
                     if let Some(mut child) = cursor.element.child(&tag) {
                         child.apply_attrs(&self.reader, e.attributes(), self.strict)?;
                         self.read_content(child)?;
@@ -353,12 +361,18 @@ impl<B: BufRead> DatReader<B> {
                 }
                 Event::Text(e) => {
                     if let Some(content) = cursor.element.content() {
-                        content.push_str(&e.unescape()?);
+                        content.push_str(&e.decode().map_err(quick_xml::Error::Encoding)?);
                     }
                 }
                 Event::CData(e) => {
                     if let Some(content) = cursor.element.content() {
-                        content.push_str(&self.reader.decoder().decode(&e)?);
+                        content.push_str(
+                            &self
+                                .reader
+                                .decoder()
+                                .decode(&e)
+                                .map_err(quick_xml::Error::Encoding)?,
+                        );
                     }
                 }
                 Event::End(_) => break Ok(()),
@@ -388,7 +402,10 @@ impl<'a> XmlCursor<'a> {
     ) -> Result<(), DatReaderError> {
         for attr in attrs {
             let attr = attr.map_err(quick_xml::Error::InvalidAttr)?;
-            let key = reader.decoder().decode(attr.key.into_inner())?;
+            let key = reader
+                .decoder()
+                .decode(attr.key.into_inner())
+                .map_err(quick_xml::Error::Encoding)?;
             let value = attr.decode_and_unescape_value(reader.decoder())?;
             if let Some(target) = self.element.attr(&key) {
                 if target.set_from_str(&value) {
