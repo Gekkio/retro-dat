@@ -131,7 +131,7 @@ pub struct Game {
     pub is_bios: bool,
     pub source_file: String,
     pub clone_of: String,
-    pub clone_ofid: String, // No-Intro extension
+    pub clone_of_id: String, // No-Intro extension
     pub rom_of: String,
     pub sample_of: String,
     pub board: String,
@@ -444,7 +444,7 @@ fn test_full_parse() {
         <clrmamepro header="Header" forcemerging="full" forcenodump="ignore" forcepacking="unzip" />
         <romcenter plugin="Plugin" rommode="unmerged" biosmode="unmerged" samplemode="unmerged" lockrommode="yes" lockbiosmode="yes" locksamplemode="yes" />
     </header>
-    <game name="Name" sourcefile="Sourcefile" isbios="yes" cloneof="Cloneof" romof="Romof" sampleof="Sampleof" board="Board" rebuildto="Rebuildto">
+    <game name="Name" sourcefile="Sourcefile" isbios="yes" cloneof="Cloneof" cloneofid="Cloneofid" romof="Romof" sampleof="Sampleof" board="Board" rebuildto="Rebuildto">
         <comment>Comment1</comment>
         <comment>Comment2</comment>
         <description>Description</description>
@@ -509,6 +509,7 @@ fn test_full_parse() {
                     source_file: "Sourcefile".to_owned(),
                     is_bios: true,
                     clone_of: "Cloneof".to_owned(),
+                    clone_of_id: "Cloneofid".to_owned(),
                     rom_of: "Romof".to_owned(),
                     sample_of: "Sampleof".to_owned(),
                     board: "Board".to_owned(),
@@ -610,6 +611,7 @@ fn test_full_parse() {
                     source_file: "".to_owned(),
                     is_bios: false,
                     clone_of: "".to_owned(),
+                    clone_of_id: "".to_owned(),
                     rom_of: "".to_owned(),
                     sample_of: "".to_owned(),
                     board: "".to_owned(),

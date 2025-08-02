@@ -109,6 +109,7 @@ impl XmlElement for Game {
             "sourcefile" => Some(&mut self.source_file),
             "isbios" => Some(&mut self.is_bios),
             "cloneof" => Some(&mut self.clone_of),
+            "cloneofid" => Some(&mut self.clone_of_id),
             "romof" => Some(&mut self.rom_of),
             "sampleof" => Some(&mut self.sample_of),
             "board" => Some(&mut self.board),
