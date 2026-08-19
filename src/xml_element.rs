@@ -15,7 +15,7 @@ pub(crate) trait XmlElement {
     fn attr(&mut self, _: &str) -> Option<&mut dyn XmlAttr> {
         None
     }
-    fn child(&mut self, _: &str) -> Option<XmlCursor> {
+    fn child(&mut self, _: &str) -> Option<XmlCursor<'_>> {
         None
     }
     fn content(&mut self) -> Option<&mut String> {
@@ -37,7 +37,7 @@ impl XmlElement for DataFile {
             _ => None,
         }
     }
-    fn child(&mut self, tag: &str) -> Option<XmlCursor> {
+    fn child(&mut self, tag: &str) -> Option<XmlCursor<'_>> {
         match tag {
             "header" => cursor("header", self.header.get_or_insert_with(Header::default)),
             "game" => {
@@ -49,7 +49,7 @@ impl XmlElement for DataFile {
     }
 }
 impl XmlElement for Header {
-    fn child(&mut self, tag: &str) -> Option<XmlCursor> {
+    fn child(&mut self, tag: &str) -> Option<XmlCursor<'_>> {
         match tag {
             "name" => cursor("name", &mut self.name),
             "description" => cursor("description", &mut self.description),
@@ -117,7 +117,7 @@ impl XmlElement for Game {
             _ => None,
         }
     }
-    fn child(&mut self, tag: &str) -> Option<XmlCursor> {
+    fn child(&mut self, tag: &str) -> Option<XmlCursor<'_>> {
         match tag {
             "name" => cursor("name", &mut self.name),
             "description" => cursor("description", &mut self.description),

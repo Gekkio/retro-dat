@@ -216,7 +216,7 @@ pub struct DatReader<B: BufRead> {
     strict: bool,
 }
 
-impl<'a> DatReader<&'a [u8]> {
+impl DatReader<&[u8]> {
     pub fn from_string(xml: &str) -> DatReader<&[u8]> {
         DatReader::from_xml_reader(quick_xml::Reader::from_str(xml))
     }
@@ -407,7 +407,10 @@ impl<'a> XmlCursor<'a> {
                 .decoder()
                 .decode(attr.key.into_inner())
                 .map_err(quick_xml::Error::Encoding)?;
-            let value = attr.decode_and_unescape_value(reader.decoder())?;
+            let value = attr.decoded_and_normalized_value(
+                quick_xml::XmlVersion::Implicit1_0,
+                reader.decoder(),
+            )?;
             if let Some(target) = self.element.attr(&key) {
                 if target.set_from_str(&value) {
                     continue;
